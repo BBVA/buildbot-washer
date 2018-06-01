@@ -1,3 +1,9 @@
+"""
+Configure and launch the worker.
+
+Options are passed via environment variables.
+
+"""
 import os
 
 from buildbot_worker.bot import Worker
@@ -9,11 +15,10 @@ import netifaces
 
 GATEWAY = netifaces.gateways()["default"][netifaces.AF_INET][0]
 
-print(os.environ)
 
 class BuildbotConf(EnvironConfig):
     """
-    Environment variable configuration.
+    Buildbot environment variable.
 
     """
     BUILDMASTER = StringVar(default=GATEWAY)
@@ -26,6 +31,10 @@ class BuildbotConf(EnvironConfig):
 
 
 class WasherConf(EnvironConfig):
+    """
+    Washer environment variable.
+
+    """
     __varprefix__ = "WASHER_"
 
     FORCE_GATEWAY = BooleanVar(default=False)
@@ -62,6 +71,7 @@ OPTIONS["logfile"] = WasherConf.LOG_FILE
 
 if __name__ == '__main__':
 
+    # TODO: Add list of to-be-restored variables as cmdline parameters.
     del os.environ["LD_LIBRARY_PATH"]
     del os.environ["PYTHONHOME"]
 
