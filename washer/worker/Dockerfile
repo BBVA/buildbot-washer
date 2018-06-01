@@ -1,4 +1,4 @@
-FROM python:3.6
+FROM python:3.6 as builder
 
 # Install dependencies.
 COPY requirements.txt ./
@@ -16,3 +16,7 @@ RUN ldd /washer/buildbot-worker | awk '/=>/ && !/\/washer/ {print $3}' | xargs -
 # Copy entrypoint and set permissions.
 COPY entrypoint.sh /washer
 RUN chmod a+x /washer/entrypoint.sh
+
+FROM alpine:latest
+COPY --from=builder /washer /washer
+CMD ["/washer/entrypoint.sh"]
