@@ -2,7 +2,7 @@ from collections import namedtuple
 import abc
 
 
-def WithFields(*fields):
+def withfields(*fields):
     """Returns an "anonymous" namedtuple with *fields."""
     return namedtuple("Fields", fields)
 
@@ -18,35 +18,49 @@ class MasterAction(metaclass=abc.ABCMeta):
         pass
 
 
-class UpdateProgress(MasterAction,
-                     WithFields("name", "value")):
-    """
-#     @property
-#     def message(self):
-#         return {"progress": {self.name: self.value}}
-    """
-    pass
+class UpdateProgress(MasterAction, withfields("name", "value")):
+    @property
+    def message(self):
+        return {"progress": {self.name: self.value}}
 
 
-class UpdateSummary(MasterAction, tuple):
-    pass
+class UpdateSummary(MasterAction, withfields("value")):
+    @property
+    def message(self):
+        return {"summary": self.value}
 
 
-class CreateNamedLog(MasterAction, tuple):
-    pass
+class CreateNamedLog(MasterAction, withfields("name")):
+    @property
+    def message(self):
+        return {"createlog": self.name}
 
 
-class AppendToLog(MasterAction, tuple):
-    pass
+class AppendToLog(MasterAction, withfields("name", "value")):
+    @property
+    def message(self):
+        return {"log": (self.name, self.value)}
 
 
-class AppendStdout(MasterAction, tuple):
-    pass
+class AppendStdout(MasterAction, withfields("value")):
+    @property
+    def message(self):
+        return {"stdout": self.value}
 
 
-class AppendStderr(MasterAction, tuple):
-    pass
+class AppendStderr(MasterAction, withfields("value")):
+    @property
+    def message(self):
+        return {"stderr": self.value}
 
 
-class AppendHeader(MasterAction, tuple):
-    pass
+class AppendHeader(MasterAction, withfields("value")):
+    @property
+    def message(self):
+        return {"header": self.value}
+
+
+class Warn(MasterAction, withfields("value")):
+    @property
+    def message(self):
+        return {"log": ("warnings", self.value)}

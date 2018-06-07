@@ -7,7 +7,9 @@ setuptools.setup(
     author_email="robertomartinezp@gmail.com",
     description="Buildbot Utility Library",
     packages=setuptools.find_packages(exclude=["tests", "docs"]),
-    install_requires=["buildbot-worker>=0.9.0"],
+    install_requires=[
+        "buildbot-worker>=0.9.0",
+        "buildbot>=0.9.0"],
     entry_points={
         "buildbot.worker": [
             "WasherDockerLatentWorker = washer.master.worker.docker:WasherDockerLatentWorker"

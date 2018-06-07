@@ -1,7 +1,6 @@
 import pytest
 
 
-@pytest.mark.wip
 def test_worker_command():
     try:
         from washer.worker.commands import WasherCommand
@@ -9,7 +8,6 @@ def test_worker_command():
         assert False, str(exc)
 
 
-@pytest.mark.wip
 @pytest.mark.parametrize("name", ["MasterAction",
                                   "UpdateProgress",
                                   "UpdateSummary",
@@ -17,7 +15,8 @@ def test_worker_command():
                                   "AppendToLog",
                                   "AppendStdout",
                                   "AppendStderr",
-                                  "AppendHeader"])
+                                  "AppendHeader",
+                                  "Warn"])
 def test_remote_actions(name):
     try:
         from washer.worker import actions
@@ -27,7 +26,6 @@ def test_remote_actions(name):
         assert hasattr(actions, name)
 
 
-@pytest.mark.wip
 def test_washertask():
     try:
         from washer.worker.commands import washertask
