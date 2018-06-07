@@ -1,4 +1,4 @@
-|logo| buildbot-washer
+buildbot-washer |logo|
 ======================
 
 Buildbot Utility Library
