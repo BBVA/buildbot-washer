@@ -1,7 +1,7 @@
 import pytest
 from unittest import mock
 
-from washer.worker.commands import WasherCommand as WC
+from washer.worker.commands import WasherTask as WC
 from washer.worker import actions
 from buildbot.process import results
 

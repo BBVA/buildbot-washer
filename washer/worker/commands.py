@@ -1,19 +1,26 @@
 import inspect
 
-from buildbot_worker.commands.base import Command
 from buildbot.process import results
+from buildbot_worker.commands import registry
+from buildbot_worker.commands.base import Command
 from twisted.internet import reactor
 
 from . import actions
 
 
-class WasherCommand(Command):
+class WasherTask(Command):
     """
     Run the specified task in an independent thread, sending back to master the
     *actions* yielded by the task.
 
     """
     requiredArgs = ["task"]
+
+    #: User registered tasks.
+    _tasks = dict()
+
+    #: Name to be registered with into the `commandRegistry`.
+    _name = "washertask"
 
     @staticmethod
     def runtask(sender, task):
@@ -62,6 +69,12 @@ class WasherCommand(Command):
                 reactor.callFromThread(sender, event.message)
 
 
-def washertask():
+def washertask(fn):
     """`washertask` registering decorator."""
-    pass
+    WasherTask._tasks[fn.__name__] = fn
+    return fn
+
+
+def register():
+    """Register available washer commands into worker `commandRegistry`."""
+    registry.commandRegistry[WasherTask._name] = WasherTask

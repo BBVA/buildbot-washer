@@ -8,7 +8,7 @@ from washer.worker import actions
 
 
 def test_worker_command_is_command():
-    assert issubclass(commands.WasherCommand, Command)
+    assert issubclass(commands.WasherTask, Command)
 
 
 @pytest.mark.parametrize(
@@ -30,5 +30,5 @@ def test_MasterAction_message_is_abstractproperty():
 @pytest.mark.parametrize(
     "attribute,value",
     [("requiredArgs", ["task"]), ])
-def test_WasherCommand_attributes(attribute, value):
-    assert getattr(commands.WasherCommand, attribute, object()) == value
+def test_WasherTask_attributes(attribute, value):
+    assert getattr(commands.WasherTask, attribute, object()) == value
