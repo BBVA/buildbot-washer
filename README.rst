@@ -1,5 +1,7 @@
-buildbot-washer |logo|
-======================
+buildbot-washer
+===============
+
+|logo|
 
 Buildbot Utility Library
 
