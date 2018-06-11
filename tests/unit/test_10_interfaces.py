@@ -29,6 +29,6 @@ def test_MasterAction_message_is_abstractproperty():
 
 @pytest.mark.parametrize(
     "attribute,value",
-    [("requiredArgs", ["task"]), ])
+    [("requiredArgs", ["task_name", "task_args"]), ])
 def test_WasherTask_attributes(attribute, value):
     assert getattr(commands.WasherTask, attribute, object()) == value

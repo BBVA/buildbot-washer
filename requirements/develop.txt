@@ -2,3 +2,4 @@ pytest
 coverage
 pycodestyle
 pydocstyle
+pytest-twisted

@@ -6,10 +6,8 @@ from washer.worker import actions
 from buildbot.process import results
 
 
-class FakeSender:
-    @classmethod
-    def callFromThread(*args):
-        pass
+def fakesender(*args):
+    pass
 
 
 class FakeAction(actions.MasterAction):
@@ -23,7 +21,7 @@ def test_do_not_accept_regular_functions_as_tasks():
         pass
 
     with pytest.raises(AttributeError):
-        WC.runtask(FakeSender, myfunction)
+        WC.runtask(fakesender, myfunction)
 
 
 def test_raises_on_invalid_data():
@@ -31,7 +29,7 @@ def test_raises_on_invalid_data():
         yield "INVALID DATA"
 
     with pytest.raises(TypeError):
-        WC.runtask(FakeSender, mygenerator)
+        WC.runtask(fakesender, mygenerator)
 
 
 @pytest.mark.parametrize(
@@ -43,7 +41,7 @@ def test_return_value_depends_on_generator(genresult, runresult):
         yield FakeAction()
         return genresult
 
-    assert WC.runtask(FakeSender, mygenerator) is runresult
+    assert WC.runtask(fakesender, mygenerator) is runresult
 
 
 @pytest.mark.parametrize("genresult", [None, object()])
@@ -53,7 +51,7 @@ def test_raise_on_invalid_return(genresult):
         return genresult
 
     with pytest.raises(TypeError):
-        WC.runtask(FakeSender, mygenerator)
+        WC.runtask(fakesender, mygenerator)
 
 
 @pytest.mark.parametrize(
@@ -65,7 +63,7 @@ def test_raise_runtimeerror_on_generator_exception(genexception):
         raise genexception("This is an exception.")
 
     with pytest.raises(RuntimeError):
-        WC.runtask(FakeSender, mygenerator)
+        WC.runtask(fakesender, mygenerator)
 
 
 @pytest.mark.parametrize(
@@ -77,7 +75,7 @@ def test_return_when_warnings_are_yielded(genresult, runresult):
         yield actions.Warn("Something happened.")
         return genresult
 
-    assert WC.runtask(FakeSender, mygenerator) is runresult
+    assert WC.runtask(fakesender, mygenerator) is runresult
 
 
 def test_yielded_actions_are_sent_using_callFromThread():

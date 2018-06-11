@@ -10,7 +10,7 @@ def withfields(*fields):
 class MasterAction(metaclass=abc.ABCMeta):
     @property
     @abc.abstractmethod
-    def message(self):
+    def message(self):  # pragma: no cover
         """
         Return a valid dictionary to be passed to `Command.sendStatus`.
 
