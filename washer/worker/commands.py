@@ -75,7 +75,10 @@ class WasherTask(Command):
         """Assign command arguments to instance attributes."""
         self.task_name = args["task_name"]
         self.task_args = args["task_args"]
-        self.task = self._tasks[self.task_name]
+        try:
+            self.task = self._tasks[self.task_name]
+        except KeyError:
+            raise RuntimeError("Unknown washertask %r" % self.task_name)
 
     @defer.inlineCallbacks
     def start(self):
