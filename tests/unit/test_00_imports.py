@@ -38,3 +38,24 @@ def test_commands_register():
         from washer.worker.commands import register
     except ImportError as exc:
         assert False, str(exc)
+
+
+def test_remotecommand_WasherTaskCommand():
+    try:
+        from washer.master.remotecommand import WasherTaskCommand
+    except ImportError as exc:
+        assert False, str(exc)
+
+
+def test_steps_TriggerFromFile():
+    try:
+        from washer.master.steps import TriggerFromFile
+    except ImportError as exc:
+        assert False, str(exc)
+
+
+def test_steps_WasherTask():
+    try:
+        from washer.master.steps import WasherTask
+    except ImportError as exc:
+        assert False, str(exc)
