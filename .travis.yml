@@ -12,3 +12,4 @@ script:
   - coverage run $(which py.test) -m 'not wip' -v tests/unit
 after_success:
   - codecov
+
