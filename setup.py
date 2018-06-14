@@ -2,11 +2,12 @@ import setuptools
 
 setuptools.setup(
     name="buildbot-washer",
-    version="0.0.3",
+    version="0.0.4",
     author="Roberto Abdelkader Martínez Pérez",
     author_email="robertomartinezp@gmail.com",
     description="Buildbot Utility Library",
     packages=setuptools.find_packages(exclude=["tests", "docs"]),
+    license="Apache",
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
