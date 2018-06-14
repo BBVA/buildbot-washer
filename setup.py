@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="buildbot-washer",
-    version="0.0.4",
+    version="0.0.5",
     author="Roberto Abdelkader Martínez Pérez",
     author_email="robertomartinezp@gmail.com",
     description="Buildbot Utility Library",
@@ -14,6 +14,9 @@ setuptools.setup(
         'Framework :: Buildout :: Extension',
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Testing'
     ],
     install_requires=[
