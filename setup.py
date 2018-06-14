@@ -7,6 +7,9 @@ setuptools.setup(
     author_email="robertomartinezp@gmail.com",
     description="Buildbot Utility Library",
     packages=setuptools.find_packages(exclude=["tests", "docs"]),
+    install_requires=[
+        "environconfig==1.7.0"
+    ],
     entry_points={
         "buildbot.steps": [
             "TriggerFromFile = washer.master.steps:TriggerFromFile",
