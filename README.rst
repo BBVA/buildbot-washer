@@ -54,10 +54,19 @@ How to Contribute
 
 
 .. |license| image:: https://img.shields.io/pypi/l/buildbot-washer.svg
+   :target: https://github.com/BBVA/buildbot-washer/blob/develop/LICENSE
+
 .. |pyver| image:: https://img.shields.io/pypi/pyversions/buildbot-washer.svg
+   :target: https://pypi.org/project/buildbot-washer/
+
 .. |version| image:: https://img.shields.io/pypi/v/buildbot-washer.svg
+   :target: https://pypi.org/project/buildbot-washer/
+
 .. |tests| image:: https://img.shields.io/travis/BBVA/buildbot-washer.svg
+   :target: https://travis-ci.org/BBVA/buildbot-washer
+
 .. |coverage| image:: https://img.shields.io/codecov/c/gh/BBVA/buildbot-washer.svg
+   :target: https://codecov.io/gh/BBVA/buildbot-washer
 
 .. _Read the Docs: https://readthedocs.org
 .. _the repository: https://github.com/BBVA/buildbot-washer
