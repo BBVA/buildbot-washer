@@ -28,7 +28,9 @@ def test_processor():
 
 @pt.inlineCallbacks
 def test_getFileContentsFromWorker():
-    with mock.patch('buildbot.plugins.steps.Trigger.run'):
+    with mock.patch('buildbot.plugins.steps.Trigger.run') as run:
+        run.side_effect = lambda *_, **__:  defer.returnValue(None)
+
         trigger = TriggerFromFile(schedulerNames=["myscheduler"])
 
         trigger.getFileContentFromWorker = mock.MagicMock(

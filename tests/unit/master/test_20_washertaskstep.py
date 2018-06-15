@@ -29,7 +29,9 @@ def test_task_args():
 
 @pt.inlineCallbacks
 def test_run_use_WasherTaskCommand():
-    with mock.patch('buildbot.process.buildstep.LoggingBuildStep.run'):
+    with mock.patch('buildbot.process.buildstep.LoggingBuildStep.run') as run:
+        run.side_effect = lambda *_, **__:  defer.returnValue(None)
+
         step = steps.WasherTask(task_name="mytask", task_args={"foo": "bar"})
 
         step.checkWorkerHasCommand = mock.MagicMock()
