@@ -10,4 +10,4 @@ Buildbot Utility Library
 .. |pyver| image:: https://img.shields.io/pypi/pyversions/buildbot-washer.svg
 .. |version| image:: https://img.shields.io/pypi/v/buildbot-washer.svg
 .. |tests| image:: https://img.shields.io/travis/BBVA/buildbot-washer.svg
-.. |coverage| image:: https://img.shields.io/codecov/c/github/codecov/buildbot-washer.svg
+.. |coverage| image:: https://img.shields.io/codecov/c/gh/BBVA/buildbot-washer.svg
