@@ -1,6 +1,5 @@
 from unittest import mock
 
-from twisted.internet import defer
 import pytest_twisted as pt
 
 from washer.master.steps import TriggerFromFile
@@ -28,13 +27,11 @@ def test_processor():
 
 @pt.inlineCallbacks
 def test_getFileContentsFromWorker():
-    with mock.patch('buildbot.plugins.steps.Trigger.run') as run:
-        run.side_effect = lambda *_, **__:  defer.returnValue(None)
-
+    with mock.patch('buildbot.plugins.steps.Trigger.run'):
         trigger = TriggerFromFile(schedulerNames=["myscheduler"])
 
         trigger.getFileContentFromWorker = mock.MagicMock(
-            side_effect=lambda *_, **__: defer.returnValue("content"))
+            return_value="content")
 
         yield trigger.run()
 

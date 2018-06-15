@@ -71,5 +71,4 @@ class WasherTask(buildstep.LoggingBuildStep, CompositeStepMixin):
             task_name=self.task_name,
             task_args=self.task_args)
         res = yield self.runCommand(cmd)
-
-        return res.results()
+        defer.returnValue(res.results())
