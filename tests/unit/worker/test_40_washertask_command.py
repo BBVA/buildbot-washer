@@ -35,6 +35,14 @@ def test_washertask_start_runs_task():
     assert called
 
 
+def test_unknown_task_raise():
+    with pytest.raises(RuntimeError):
+        WasherTask(
+            builder=None,
+            stepId=None,
+            args={"task_name": "foo", "task_args": {}})
+
+
 @pt.inlineCallbacks
 def test_washertask_expand_args():
     p1 = object()
