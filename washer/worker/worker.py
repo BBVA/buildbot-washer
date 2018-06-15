@@ -4,14 +4,11 @@ Configure and launch the worker.
 Options are passed via environment variables.
 
 """
-import os
-
 from buildbot_worker.bot import Worker
 from twisted.application import service
 from twisted.scripts._twistd_unix import UnixApplicationRunner, ServerOptions
 
 from . import commands, conf
-from .actions import *
 
 
 try:
@@ -23,6 +20,11 @@ else:
 
 
 def prepare_app():
+    """
+    Prepare a worker application containing the custom washer commands and that
+    can be run without the use of the `buildbot` command script.
+
+    """
     application = service.Application('buildbot-worker')
     master = (GATEWAY
               if conf.Washer.FORCE_GATEWAY

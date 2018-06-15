@@ -3,6 +3,10 @@ from buildbot.process import results
 
 
 class WasherTaskCommand(remotecommand.RemoteCommand):
+    """
+    Master side of a washer task.
+
+    """
     def __init__(self, task_name=None, task_args=None):
 
         if task_name is None:
@@ -22,6 +26,11 @@ class WasherTaskCommand(remotecommand.RemoteCommand):
                       results.WARNINGS: results.WARNINGS})
 
     def remoteUpdate(self, update):
+        """
+        Translate messages received from the worker to actions performed on the
+        master.
+
+        """
         for name, value in update.get("progress", {}).items():
             self.step.setProgress(name, value)
 
