@@ -7,7 +7,7 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
 # Copy and install package code
-RUN pip install buildbot-washer
+RUN pip install buildbot-washer==0.0.6rc1
 
 # Compile worker startup script with Nuitka.
 COPY worker.py ./

@@ -69,7 +69,7 @@ class WasherTask(Command):
                     has_warnings = True
 
                 # The action message is sent to the master.
-                reactor.callFromThread(sender, event.message)
+                threads.blockingCallFromThread(reactor, sender, event.message)
 
     def setup(self, args):
         """Assign command arguments to instance attributes."""

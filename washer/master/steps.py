@@ -70,5 +70,7 @@ class WasherTask(buildstep.LoggingBuildStep, CompositeStepMixin):
         cmd = remotecommand.WasherTaskCommand(
             task_name=self.task_name,
             task_args=self.task_args)
+        self.logfiles["stdio"] = yield self.addLogForRemoteCommands("stdio")
+        cmd.useLog(self.logfiles["stdio"], False, "stdio")
         res = yield self.runCommand(cmd)
         defer.returnValue(res.results())

@@ -1,3 +1,4 @@
+from twisted.internet import defer
 from buildbot.process import remotecommand
 from buildbot.process import results
 
@@ -25,6 +26,7 @@ class WasherTaskCommand(remotecommand.RemoteCommand):
                       results.EXCEPTION: results.EXCEPTION,
                       results.WARNINGS: results.WARNINGS})
 
+    @defer.inlineCallbacks
     def remoteUpdate(self, update):
         """
         Translate messages received from the worker to actions performed on the
@@ -45,4 +47,4 @@ class WasherTaskCommand(remotecommand.RemoteCommand):
                 self.step.logfiles[logname] = logfile
                 self.useLog(logfile, False, logname)
 
-        return super().remoteUpdate(update)
+        yield super().remoteUpdate(update)
