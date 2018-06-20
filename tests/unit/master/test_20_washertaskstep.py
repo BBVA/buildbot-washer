@@ -30,19 +30,20 @@ def test_task_args():
 @pt.inlineCallbacks
 def test_run_use_WasherTaskCommand():
     with mock.patch('buildbot.process.buildstep.LoggingBuildStep.run'):
-        step = steps.WasherTask(task_name="mytask", task_args={"foo": "bar"})
+        with mock.patch('washer.master.steps.WasherTask.addLog'):
+            step = steps.WasherTask(task_name="mytask", task_args={"foo": "bar"})
 
-        step.checkWorkerHasCommand = mock.MagicMock()
+            step.checkWorkerHasCommand = mock.MagicMock()
 
-        step.runCommand = mock.MagicMock()
-        step.runCommand.side_effect = lambda *_, **__: defer.returnValue(0)
+            step.runCommand = mock.MagicMock()
+            step.runCommand.side_effect = lambda *_, **__: defer.returnValue(0)
 
-        yield step.run()
+            yield step.run()
 
-        step.checkWorkerHasCommand.assert_called_once_with("washertask")
+            step.checkWorkerHasCommand.assert_called_once_with("washertask")
 
-        assert len(step.runCommand.mock_calls) == 1
-        call = step.runCommand.mock_calls[0]
+            assert len(step.runCommand.mock_calls) == 1
+            call = step.runCommand.mock_calls[0]
 
-        # check for first arg
-        assert isinstance(call[1][0], remotecommand.WasherTaskCommand)
+            # check for first arg
+            assert isinstance(call[1][0], remotecommand.WasherTaskCommand)

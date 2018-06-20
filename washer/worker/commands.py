@@ -1,4 +1,5 @@
 import inspect
+import traceback
 
 from buildbot.process import results
 from buildbot_worker.commands import registry
@@ -58,7 +59,8 @@ class WasherTask(Command):
                                      "Must be either `True` or `False`."))
             except Exception as exc:
                 # An internal task exception is wrapped on a RuntimeError.
-                raise RuntimeError("Task raised an exception.") from exc
+                raise RuntimeError(
+                    "Task exception.\n%s" % traceback.format_exc())
             else:
                 # The yielded task action is check.
                 if not isinstance(event, actions.MasterAction):

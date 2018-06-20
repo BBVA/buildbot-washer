@@ -1,6 +1,7 @@
 import pytest
 from unittest import mock
 
+from twisted.internet import reactor
 from washer.worker.commands import WasherTask as WC
 from washer.worker import actions
 from buildbot.process import results
@@ -28,8 +29,9 @@ def test_raises_on_invalid_data():
     def mygenerator():
         yield "INVALID DATA"
 
-    with pytest.raises(TypeError):
-        WC.runtask(fakesender, mygenerator)
+    with mock.patch('twisted.internet.threads.blockingCallFromThread'):
+        with pytest.raises(TypeError):
+            WC.runtask(fakesender, mygenerator)
 
 
 @pytest.mark.parametrize(
@@ -41,7 +43,8 @@ def test_return_value_depends_on_generator(genresult, runresult):
         yield FakeAction()
         return genresult
 
-    assert WC.runtask(fakesender, mygenerator) is runresult
+    with mock.patch('twisted.internet.threads.blockingCallFromThread'):
+        assert WC.runtask(fakesender, mygenerator) is runresult
 
 
 @pytest.mark.parametrize("genresult", [None, object()])
@@ -50,8 +53,9 @@ def test_raise_on_invalid_return(genresult):
         yield FakeAction()
         return genresult
 
-    with pytest.raises(TypeError):
-        WC.runtask(fakesender, mygenerator)
+    with mock.patch('twisted.internet.threads.blockingCallFromThread'):
+        with pytest.raises(TypeError):
+            WC.runtask(fakesender, mygenerator)
 
 
 @pytest.mark.parametrize(
@@ -62,8 +66,9 @@ def test_raise_runtimeerror_on_generator_exception(genexception):
         yield FakeAction()
         raise genexception("This is an exception.")
 
-    with pytest.raises(RuntimeError):
-        WC.runtask(fakesender, mygenerator)
+    with mock.patch('twisted.internet.threads.blockingCallFromThread'):
+        with pytest.raises(RuntimeError):
+            WC.runtask(fakesender, mygenerator)
 
 
 @pytest.mark.parametrize(
@@ -75,7 +80,8 @@ def test_return_when_warnings_are_yielded(genresult, runresult):
         yield actions.Warn("Something happened.")
         return genresult
 
-    assert WC.runtask(fakesender, mygenerator) is runresult
+    with mock.patch('twisted.internet.threads.blockingCallFromThread'):
+        assert WC.runtask(fakesender, mygenerator) is runresult
 
 
 def test_yielded_actions_are_sent_using_callFromThread():
@@ -87,11 +93,11 @@ def test_yielded_actions_are_sent_using_callFromThread():
         return True
 
     with mock.patch(
-            'twisted.internet.reactor.callFromThread') as callFromThread:
+            'twisted.internet.threads.blockingCallFromThread') as callFromThread:
         sender = mock.Mock()
-        callFromThread.side_effect = lambda _, message: sender(message)
+        callFromThread.side_effect = lambda _1, _2, message: sender(message)
 
         WC.runtask(sender, mygenerator)
 
-        callFromThread.assert_called_once_with(sender, MyFakeAction.message)
+        callFromThread.assert_called_once_with(reactor, sender, MyFakeAction.message)
         sender.assert_called_once_with(MyFakeAction.message)
