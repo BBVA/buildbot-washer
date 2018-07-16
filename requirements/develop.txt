@@ -1,0 +1,7 @@
+pytest
+coverage
+pycodestyle
+pydocstyle
+pytest-twisted
+buildbot-worker>=0.9.0
+buildbot>=0.9.0

@@ -1,0 +1,7 @@
+buildbot-washer==0.0.6
+netifaces==0.10.7
+environconfig==1.7.0
+buildbot-worker==1.1.2
+buildbot>=0.9.0
+nuitka==0.5.30
+invoke==1.0.0
