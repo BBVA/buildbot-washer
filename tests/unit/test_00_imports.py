@@ -16,7 +16,8 @@ def test_worker_command():
                                   "AppendStdout",
                                   "AppendStderr",
                                   "AppendHeader",
-                                  "Warn"])
+                                  "Warn",
+                                  "SetProperty"])
 def test_remote_actions(name):
     try:
         from washer.worker import actions

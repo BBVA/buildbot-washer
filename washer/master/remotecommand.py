@@ -47,4 +47,8 @@ class WasherTaskCommand(remotecommand.RemoteCommand):
                 self.step.logfiles[logname] = logfile
                 self.useLog(logfile, False, logname)
 
+        if "property" in update:
+            name, value = update["property"]
+            self.step.setProperty(name, value, self.step.name, runtime=True)
+
         yield super().remoteUpdate(update)

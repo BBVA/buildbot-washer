@@ -84,3 +84,9 @@ class Warn(MasterAction, withfields("value")):
     @property
     def message(self):
         return {"log": ("warnings", self.value)}
+
+
+class SetProperty(MasterAction, withfields("name", "value")):
+    @property
+    def message(self):
+        return {"property": (self.name, self.value)}
