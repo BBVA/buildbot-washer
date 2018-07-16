@@ -53,3 +53,15 @@ def test_TriggerFromFile_is_Trigger_and_CompositeStepMixin():
 def test_steps_WasherTask_is_LoggingBuildStep_and_CompositeStepMixin():
     assert issubclass(steps.WasherTask, buildstep.LoggingBuildStep)
     assert issubclass(steps.WasherTask, CompositeStepMixin)
+
+
+def test_steps_ReduceTriggerProperties_is_BuildStep():
+    assert issubclass(steps.ReduceTriggerProperties, buildstep.BuildStep)
+
+
+@pytest.mark.parametrize(
+    "attribute,value",
+    [("requiredArgs", ["reducefn"]), ])
+def test_ReduceTriggerProperties_attributes(attribute, value):
+    assert getattr(steps.ReduceTriggerProperties,
+                   attribute, object()) == value

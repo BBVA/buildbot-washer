@@ -59,3 +59,10 @@ def test_steps_WasherTask():
         from washer.master.steps import WasherTask
     except ImportError as exc:
         assert False, str(exc)
+
+
+def test_steps_ReduceTriggerProperties():
+    try:
+        from washer.master.steps import ReduceTriggerProperties
+    except ImportError as exc:
+        assert False, str(exc)

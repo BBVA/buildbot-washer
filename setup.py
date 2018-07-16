@@ -26,7 +26,7 @@ setuptools.setup(
         "buildbot.steps": [
             "TriggerFromFile = washer.master.steps.triggerfromfile:TriggerFromFile",
             "WasherTask = washer.master.steps.washertask:WasherTask",
-#            "ReduceTriggerProperties = washer.master.steps.reducetriggerproperties:ReduceTriggerProperties"
+            "ReduceTriggerProperties = washer.master.steps.reducetriggerproperties:ReduceTriggerProperties"
         ],
         "buildbot.worker": [
             "WasherDockerLatentWorker = washer.master.worker.docker:WasherDockerLatentWorker"
