@@ -16,7 +16,8 @@ def test_worker_command():
                                   "AppendStdout",
                                   "AppendStderr",
                                   "AppendHeader",
-                                  "Warn"])
+                                  "Warn",
+                                  "SetProperty"])
 def test_remote_actions(name):
     try:
         from washer.worker import actions
@@ -57,5 +58,12 @@ def test_steps_TriggerFromFile():
 def test_steps_WasherTask():
     try:
         from washer.master.steps import WasherTask
+    except ImportError as exc:
+        assert False, str(exc)
+
+
+def test_steps_ReduceTriggerProperties():
+    try:
+        from washer.master.steps import ReduceTriggerProperties
     except ImportError as exc:
         assert False, str(exc)

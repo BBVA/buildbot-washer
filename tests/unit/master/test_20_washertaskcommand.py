@@ -67,3 +67,14 @@ def test_remoteupdate_CreateNamedLog(mockedcmd):
 
 
 # NOTE: Append* and Warn messages are managed by super().remoteUpdate.
+
+
+def test_remoteupdate_SetProperty(mockedcmd):
+    action = actions.SetProperty("foo", "bar")
+
+    mockedcmd.remoteUpdate(update=action.message)
+
+    mockedcmd.step.setProperty.assert_called_with("foo",
+                                                  "bar",
+                                                  mockedcmd.step.name,
+                                                  runtime=True)

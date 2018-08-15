@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="buildbot-washer",
-    version="1.0.0",
+    version="1.1.0",
     author="Roberto Abdelkader Martínez Pérez",
     author_email="robertomartinezp@gmail.com",
     description="Buildbot Utility Library",
@@ -24,8 +24,10 @@ setuptools.setup(
     ],
     entry_points={
         "buildbot.steps": [
-            "TriggerFromFile = washer.master.steps:TriggerFromFile",
-            "WasherTask = washer.master.steps:WasherTask"],
+            "TriggerFromFile = washer.master.steps.triggerfromfile:TriggerFromFile",
+            "WasherTask = washer.master.steps.washertask:WasherTask",
+            "ReduceTriggerProperties = washer.master.steps.reducetriggerproperties:ReduceTriggerProperties"
+        ],
         "buildbot.worker": [
             "WasherDockerLatentWorker = washer.master.worker.docker:WasherDockerLatentWorker"
         ]
