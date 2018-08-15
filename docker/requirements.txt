@@ -1,4 +1,4 @@
-buildbot-washer==0.0.6
+buildbot-washer==1.1.0
 netifaces==0.10.7
 environconfig==1.7.0
 buildbot-worker==1.1.2
