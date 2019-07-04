@@ -48,5 +48,4 @@ class TriggerFromFile(steps.Trigger, CompositeStepMixin):
             return obj.getRenderingFor(self.build.properties)
 
         result = yield recursiverender(list(self.processor(self)), callback)
-        # result = yield recursiverender([Property('bar'), Property('baz')], callback)
         return result
