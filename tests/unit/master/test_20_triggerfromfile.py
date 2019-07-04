@@ -58,7 +58,6 @@ def test_processor_is_used_in_getSchedulersAndProperties():
     assert called_with is trigger
 
 
-@pytest.mark.wip
 @pt.inlineCallbacks
 def test_processor_result_is_recursively_rendered_nested():
     obj = {'foo': [Property('bar'), Property('baz')],
@@ -81,7 +80,7 @@ def test_processor_result_is_recursively_rendered_nested():
 
     assert result == expected
 
-@pytest.mark.wip
+
 @pt.inlineCallbacks
 def test_processor_result_is_recursively_rendered():
     obj1 = Property('bar')
