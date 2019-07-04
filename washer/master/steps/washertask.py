@@ -28,12 +28,9 @@ class WasherTask(buildstep.LoggingBuildStep, CompositeStepMixin):
     def run(self):
         self.checkWorkerHasCommand("washertask")
 
-        arguments = {k: yield self.render(v) if isinstance(v, IRenderable) else v
-                    for k, v in self.task_args.items()}
-
         cmd = remotecommand.WasherTaskCommand(
             task_name=self.task_name,
-            task_args=arguments)
+            task_args=self.task_args)
         self.logfiles["stdio"] = yield self.addLogForRemoteCommands("stdio")
         cmd.useLog(self.logfiles["stdio"], False, "stdio")
         res = yield self.runCommand(cmd)
