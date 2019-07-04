@@ -2,6 +2,10 @@ from buildbot.plugins import steps
 from buildbot.steps.worker import CompositeStepMixin
 from twisted.internet import defer
 
+from buildbot.process.properties import Property, Properties
+
+from washer.master.recursiverender import recursiverender
+
 
 class TriggerFromFile(steps.Trigger, CompositeStepMixin):
     """
@@ -38,5 +42,11 @@ class TriggerFromFile(steps.Trigger, CompositeStepMixin):
         rv = yield super().run()
         defer.returnValue(rv)
 
+    @defer.inlineCallbacks
     def getSchedulersAndProperties(self):
-        return list(self.processor(self))
+        def callback(obj):
+            return obj.getRenderingFor(self.build.properties)
+
+        result = yield recursiverender(list(self.processor(self)), callback)
+        # result = yield recursiverender([Property('bar'), Property('baz')], callback)
+        return result

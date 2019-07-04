@@ -1,7 +1,9 @@
 from unittest import mock
 
+import pytest
 import pytest_twisted as pt
 
+from buildbot.process.properties import Property, Properties
 from washer.master.steps import TriggerFromFile
 
 
@@ -54,3 +56,49 @@ def test_processor_is_used_in_getSchedulersAndProperties():
     trigger.getSchedulersAndProperties()
 
     assert called_with is trigger
+
+
+@pytest.mark.wip
+@pt.inlineCallbacks
+def test_processor_result_is_recursively_rendered_nested():
+    obj = {'foo': [Property('bar'), Property('baz')],
+           'bar': 'baz'}
+    expected = [{'foo': ['bar', 'baz'],
+                 'bar': 'baz'}]
+
+    class FakeBuild:
+        properties = Properties(foo='foo', bar='bar', baz='baz')
+
+    def myprocessor(trigger):
+        yield obj
+
+    trigger = TriggerFromFile(schedulerNames=["myscheduler"],
+                              processor=myprocessor)
+    trigger.build = FakeBuild()
+
+
+    result = yield trigger.getSchedulersAndProperties()
+
+    assert result == expected
+
+@pytest.mark.wip
+@pt.inlineCallbacks
+def test_processor_result_is_recursively_rendered():
+    obj1 = Property('bar')
+    obj2 = Property('baz')
+    expected = ['bar', 'baz']
+
+    class FakeBuild:
+        properties = Properties(foo='foo', bar='bar', baz='baz')
+
+    def myprocessor(trigger):
+        yield obj1
+        yield obj2
+
+    trigger = TriggerFromFile(schedulerNames=["myscheduler"],
+                              processor=myprocessor)
+    trigger.build = FakeBuild()
+
+    result = yield trigger.getSchedulersAndProperties()
+
+    assert result == expected
