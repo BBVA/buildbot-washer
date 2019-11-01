@@ -4,4 +4,4 @@ coverage==4.5.1
 pycodestyle==2.4.0
 pydocstyle==2.1.1
 buildbot-worker==1.2.0
-buildbot==1.2.0
+buildbot==1.8.2
